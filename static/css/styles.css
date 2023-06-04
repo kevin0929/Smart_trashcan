@@ -1,0 +1,27 @@
+.trashcan-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.warning {
+    color: red;
+    ;
+}
+
+.status {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.trashcan-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>垃圾桶監控系統</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    function updateTrashcanStatus() {
+      $.get("/get_trash_value", function (data) {
+        var trash1Value = data.trash1_value;
+
+        // 更新垃圾桶状态
+        var statusElement = document.getElementById("status1");
+        statusElement.textContent = trash1Value + "%";
+
+        // 根据垃圾桶值更新图像
+        var imageElement = document.getElementById("trash1");
+        if (trash1Value == 0) {
+          imageElement.src = 'static/img/trash0.png';
+        } else if (trash1Value > 0 && trash1Value <= 25) {
+          imageElement.src = 'static/img/trash1.png';
+        } else if (trash1Value > 25 && trash1Value <= 50) {
+          imageElement.src = 'static/img/trash2.png';
+        } else if (trash1Value > 50 && trash1Value <= 75) {
+          imageElement.src = 'static/img/trash3.png';
+        } else if (trash1Value > 75) {
+          imageElement.src = 'static/img/trash4.png';
+        }
+      }).fail(function (error) {
+        console.error("Error:", error);
+      });
+    }
+
+    // 初始加载垃圾桶状态
+    updateTrashcanStatus();
+
+    // 每五秒更新一次垃圾桶状态
+    setInterval(updateTrashcanStatus, 1000);
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <br><br>
+        <h1 class="trashcan-number">垃圾桶重量監測</h1>
+        <br><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 1</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash1" width="126">
+          <div id="status1"> {{ trash1_value }}% </div>
+          <div id="warning1" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 2</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash2" width="126">
+          <div id="status2">0%</div>
+          <div id="warning2" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 3</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash3" width="126">
+          <div id="status3">0%</div>
+          <div id="warning3" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 4</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash4" width="126">
+          <div id="status4">0%</div>
+          <div id="warning4" class="warning"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 5</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash5" width="126">
+          <div id="status5">0%</div>
+          <div id="warning5" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 6</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash6" width="126">
+          <div id="status6">0%</div>
+          <div id="warning6" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 7</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash7" width="126">
+          <div id="status7">0%</div>
+          <div id="warning7" class="warning"></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-lg-3">
+        <div class="trashcan-container">
+          <div class="trashcan-number">垃圾桶 8</div>
+          <img src="{{ url_for('static', filename='img/trash0.png') }}" alt="垃圾桶圖片" id="trash8" width="126">
+          <div id="status8">0%</div>
+          <div id="warning8" class="warning"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mx-auto">
+        <input id="refresh" type="button" value="立即更新">
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
